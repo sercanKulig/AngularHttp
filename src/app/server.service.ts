@@ -11,11 +11,16 @@ export class ServerService {
   storeServers(servers: any[]) {
     const headers = new Headers({'Content-Type': 'application/json'});
     // return this.http.post('https://angular-http-b118b.firebaseio.com/data.json', servers, {headers: headers});
-    return this.http.put('https://angular-http-b118b.firebaseio.com/data.json', servers, {headers: headers});
+    return this.http.put('https://angular-http-b118b.firebaseio.com/data.json', servers, {headers: headers})
+      .catch(
+        (error: Response) => {
+          return Observable.throw('Something went wrong with storeServers');
+        }
+      );
   }
 
   getServers() {
-    return this.http.get('https://angular-http-b118b.firebaseio.com/data.jnso')
+    return this.http.get('https://angular-http-b118b.firebaseio.com/data.json')
       .map(
         (response: Response) => {
           const data = response.json();
@@ -27,7 +32,21 @@ export class ServerService {
       )
       .catch(
         (error: Response) => {
-          return Observable.throw('Something went wrong!');
+          return Observable.throw('Something went wrong with getServers');
+        }
+      );
+  }
+
+  getAppName() {
+    return this.http.get('https://angular-http-b118b.firebaseio.com/appName.json')
+      .map(
+        (response: Response) => {
+          return response.json();
+        }
+      )
+      .catch(
+        (error: Response) => {
+          return Observable.throw('Something went wrong with getServers');
         }
       );
   }
