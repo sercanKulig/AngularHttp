@@ -8,7 +8,8 @@ export class ServerService {
 
   storeServers(servers: any[]) {
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post('https://angular-http-b118b.firebaseio.com/data.json', servers, {headers: headers});
+    // return this.http.post('https://angular-http-b118b.firebaseio.com/data.json', servers, {headers: headers});
+    return this.http.put('https://angular-http-b118b.firebaseio.com/data.json', servers, {headers: headers});
   }
 
   getServers() {
